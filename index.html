@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEO-KAIDŌ // District 7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <div id="hud" class="ui">
+    <div class="brand">
+      <div class="logo">NEO-KAIDŌ<span>//</span>D7</div>
+      <div class="sub" id="hud-shot">INITIALISING</div>
+    </div>
+    <div class="telemetry mono">
+      <div><span class="k">TIME</span><span id="hud-time">--:--</span></div>
+      <div><span class="k">MODE</span><span id="hud-mode">CINEMATIC</span></div>
+      <div><span class="k">POS</span><span id="hud-pos">0 / 0</span></div>
+      <div><span class="k">ALT</span><span id="hud-alt">0 m</span></div>
+      <div><span class="k">FPS</span><span id="hud-fps">--</span></div>
+    </div>
+  </div>
+
+  <canvas id="minimap" class="ui" width="360" height="360"></canvas>
+
+  <div id="modes" class="ui">
+    <button data-mode="cinematic" class="active"><b>1</b>Cinematic</button>
+    <button data-mode="walk"><b>2</b>Street</button>
+    <button data-mode="fly"><b>3</b>Aerial</button>
+  </div>
+
+  <div id="hint" class="ui mono"></div>
+  <div id="crosshair" class="ui"><i></i></div>
+  <div id="tooltip" class="ui mono"></div>
+  <div id="toast" class="ui"></div>
+
+  <aside id="card" class="ui">
+    <button class="close" id="card-close" aria-label="Close">×</button>
+    <div class="tag mono" id="card-sub"></div>
+    <h2 id="card-title"></h2>
+    <dl id="card-rows" class="mono"></dl>
+    <div id="card-actions"></div>
+  </aside>
+
+  <button id="settings-toggle" class="ui" aria-label="Settings">⚙ <span>SETTINGS</span><kbd>Tab</kbd></button>
+  <aside id="settings" class="ui">
+    <h3>SYSTEM CONFIG</h3>
+    <label class="row">Graphics quality
+      <select id="s-quality">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high" selected>High</option>
+        <option value="ultra">Ultra</option>
+      </select>
+    </label>
+    <label class="row check"><input type="checkbox" id="s-rain" checked /> Rain</label>
+    <label class="row">Rain intensity <output id="o-rainamt">100%</output><input type="range" id="s-rainamt" min="0.1" max="1" step="0.05" value="1" /></label>
+    <label class="row check"><input type="checkbox" id="s-lightning" checked /> Lightning storms</label>
+    <label class="row">Time of day <output id="o-time">23:30</output><input type="range" id="s-time" min="0" max="24" step="0.05" value="23.5" /></label>
+    <label class="row check"><input type="checkbox" id="s-cycle" /> Auto day/night cycle</label>
+    <label class="row">Camera speed <output id="o-speed">1.0×</output><input type="range" id="s-speed" min="0.25" max="3" step="0.05" value="1" /></label>
+    <label class="row">Mouse sensitivity <output id="o-sens">1.0</output><input type="range" id="s-sens" min="0.2" max="3" step="0.05" value="1" /></label>
+    <label class="row">Bloom <output id="o-bloom">0.45</output><input type="range" id="s-bloom" min="0" max="2" step="0.05" value="0.45" /></label>
+    <label class="row">Fog density <output id="o-fog">1.0×</output><input type="range" id="s-fog" min="0.2" max="2.5" step="0.05" value="1" /></label>
+    <label class="row check"><input type="checkbox" id="s-refl" checked /> Wet-street reflections</label>
+    <label class="row check"><input type="checkbox" id="s-audio" checked /> Ambient audio</label>
+    <label class="row check"><input type="checkbox" id="s-hud" checked /> HUD &amp; minimap <kbd>H</kbd></label>
+    <div class="keys mono">
+      <div><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> cinematic / street / aerial</div>
+      <div><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move · <kbd>Shift</kbd> sprint/boost</div>
+      <div><kbd>Space</kbd> jump / climb · <kbd>C</kbd> descend</div>
+      <div><kbd>Click</kbd> / <kbd>F</kbd> inspect · <kbd>Esc</kbd> release mouse</div>
+      <div><kbd>N</kbd> next cinematic shot · wheel: flight speed</div>
+    </div>
+  </aside>
+
+  <div id="intro">
+    <div class="intro-inner">
+      <div class="kicker mono">RAIN WARNING // SECTOR 7 // 2088</div>
+      <h1>NEO-KAIDŌ</h1>
+      <p>A procedurally generated megacity. Every tower, sign, car and raindrop is built in your browser.</p>
+      <div class="loadbar"><i id="loadbar"></i></div>
+      <div class="status mono" id="load-status">Generating city…</div>
+      <button id="enter" disabled>ENTER THE CITY</button>
+      <div class="intro-keys mono">Click to enter · audio starts on entry</div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
